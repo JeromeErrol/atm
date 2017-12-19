@@ -11,8 +11,8 @@ public class Atm {
     }
 
     public void withdraw(int amountRequested) {
-        if (amountRequested <= 0) {
-            throw new IllegalWithdrawalException("Amount must be greater than 0");
+        if (amountRequested < 20) {
+            throw new IllegalWithdrawalException("The minimum withdrawal amount is 20");
         }
         if (amountRequested > getTotal()) {
             throw new IllegalWithdrawalException("Insufficient funds remaining in atm to complete request");
@@ -23,20 +23,13 @@ public class Atm {
             numberOfFiftiesToGive = fifties;
         }
         remainder = amountRequested - (numberOfFiftiesToGive * 50);
-        if (remainder % 20 > 0) {
-            if (numberOfFiftiesToGive > 0) {
-                numberOfFiftiesToGive--;
-                remainder += 50;
-                if (remainder % 20 > 0) {
-                    throw new IllegalWithdrawalException("Request must be a combination of 20's and 50's");
-                }
-            } else {
-                throw new IllegalWithdrawalException("Not enough correct notes left in machine to complete transaction");
-            }
+        if (remainder % 20 > 0 && numberOfFiftiesToGive > 0) {
+            numberOfFiftiesToGive--;
+            remainder += 50;
         }
         int numberOfTwentiesToGive = remainder / 20;
-        if(numberOfTwentiesToGive > twenties){
-            throw new IllegalWithdrawalException("Not enough correct notes left in machine to complete transaction");
+        if (remainder % 20 > 0 || numberOfTwentiesToGive > twenties) {
+            throw new IllegalWithdrawalException("The atm does not contain the notes required to complete the request");
         }
         twenties -= numberOfTwentiesToGive;
         fifties -= numberOfFiftiesToGive;
@@ -50,7 +43,7 @@ public class Atm {
         return fifties;
     }
 
-    public int getTotal(){
+    public int getTotal() {
         return (twenties * 20) + (fifties * 50);
     }
 }

@@ -176,7 +176,7 @@ public class AtmTests {
             // now try to withdraw 50 which shouldn't be possible as there are only 20's left
             atm.withdraw(50);
         } catch (IllegalWithdrawalException e) {
-            assertEquals(0, atm.getFifties(), 0);
+            assertEquals(0, atm.getFifties());
             // all of the 20's should still be remaining
             assertEquals(5, atm.getTwenties());
         }

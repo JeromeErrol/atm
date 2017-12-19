@@ -12,5 +12,7 @@ localhost:8080/{requestAmount}
 The following example will try to withdraw 50 from the atm
 localhost:8080/50
 
+If the atm cannot deliver the requested amount an exception page will be displayed with the correlating error message
+
 Unit tests can be found under the test directory in a class called "AtmTests"
 
