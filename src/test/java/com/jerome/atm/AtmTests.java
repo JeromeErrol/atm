@@ -160,6 +160,16 @@ public class AtmTests {
     }
 
     @Test
+    public void withdrawSeventyWithNoTwentiesLeft() {
+        atm = new Atm(0, 2);
+        try {
+            atm.withdraw(70);
+        } catch (IllegalWithdrawalException e) {
+            assertEquals(2, atm.getFifties());
+        }
+    }
+
+    @Test
     public void withdrawHundredWithNoFiftiesLeft() {
         atm = new Atm(6, 0);
         atm.withdraw(100);
