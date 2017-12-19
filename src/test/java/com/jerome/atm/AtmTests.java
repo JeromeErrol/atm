@@ -81,7 +81,7 @@ public class AtmTests {
     public void withdrawTwoTwentiesAndFifty() {
         atm.withdraw(90);
         assertEquals(initialFifties - 1, atm.getFifties());
-        assertEquals(initialTwenties - 2, atm.getTwenties() );
+        assertEquals(initialTwenties - 2, atm.getTwenties());
     }
 
     @Test
@@ -162,22 +162,16 @@ public class AtmTests {
     @Test
     public void withdrawHundredWithNoFiftiesLeft() {
         atm = new Atm(6, 0);
-        try {
-            atm.withdraw(100);
-        } catch (IllegalWithdrawalException e) {
-            assertEquals(1, atm.getTwenties());
-        }
+        atm.withdraw(100);
+        assertEquals(1, atm.getTwenties());
     }
 
     @Test
     public void withdrawFiftyWithOnlyTwentiesLeft() {
         atm = new Atm(5, 0);
         try {
-            // now try to withdraw 50 which shouldn't be possible as there are only 20's left
             atm.withdraw(50);
         } catch (IllegalWithdrawalException e) {
-            assertEquals(0, atm.getFifties());
-            // all of the 20's should still be remaining
             assertEquals(5, atm.getTwenties());
         }
     }
