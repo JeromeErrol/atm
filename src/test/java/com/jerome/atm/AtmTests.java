@@ -150,51 +150,34 @@ public class AtmTests {
 
     @Test
     public void withdrawSeventyWithNoFiftiesLeft() {
-        atm.withdraw(initialFifties * 50);
-        assertEquals(0, atm.getFifties());
+        atm = new Atm(6, 0);
         try {
-            // now try to withdraw 70 which requires a fifty however there should be no fifties left
             atm.withdraw(70);
         } catch (IllegalWithdrawalException e) {
-            // all the fifties should be gone from the first withdrawal
             assertEquals(0, atm.getFifties());
-            // all the 20's should still be remaining
-            assertEquals(initialTwenties, atm.getTwenties());
+            assertEquals(6, atm.getTwenties());
         }
     }
 
     @Test
     public void withdrawHundredWithNoFiftiesLeft() {
-        atm = new Atm(6, 2);
-        // this should withdraw both fifties
-        atm.withdraw(100);
-        assertEquals(0, atm.getFifties());
-        assertEquals(6, atm.getTwenties());
+        atm = new Atm(6, 0);
         try {
-            // now try to withdraw 100 which should use the 20's because there are no 50's left
             atm.withdraw(100);
         } catch (IllegalWithdrawalException e) {
-            // all the fifties should be gone from the first withdrawal
-            assertEquals(0, atm.getFifties(), 0);
-            // 1 of the 20's should still be remaining because there were 6
             assertEquals(1, atm.getTwenties());
         }
     }
 
     @Test
     public void withdrawFiftyWithOnlyTwentiesLeft() {
-        atm = new Atm(5, 2);
-        // this should withdraw both fifties
-        atm.withdraw(100);
-        assertEquals(0, atm.getFifties());
-        assertEquals(5, atm.getTwenties());
+        atm = new Atm(5, 0);
         try {
             // now try to withdraw 50 which shouldn't be possible as there are only 20's left
             atm.withdraw(50);
         } catch (IllegalWithdrawalException e) {
-            // all the fifties should be gone from the first withdrawal
             assertEquals(0, atm.getFifties(), 0);
-            // 1 of the 20's should still be remaining because there were 6
+            // all of the 20's should still be remaining
             assertEquals(5, atm.getTwenties());
         }
     }
