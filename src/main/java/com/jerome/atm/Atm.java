@@ -17,12 +17,11 @@ public class Atm {
         if (amountRequested > getTotal()) {
             throw new IllegalWithdrawalException("Insufficient funds remaining in atm to complete request");
         }
-        int remainder = amountRequested;
         int numberOfFiftiesToGive = amountRequested / 50;
         if (numberOfFiftiesToGive > fifties) {
             numberOfFiftiesToGive = fifties;
         }
-        remainder = amountRequested - (numberOfFiftiesToGive * 50);
+        int remainder = amountRequested - (numberOfFiftiesToGive * 50);
         if (remainder % 20 > 0 && numberOfFiftiesToGive > 0) {
             numberOfFiftiesToGive--;
             remainder += 50;
